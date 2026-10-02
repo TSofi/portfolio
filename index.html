@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sofiia Tretiak — Python & AI for health</title>
+<meta name="description" content="Sofiia Tretiak — Python & AI developer with a medical engineering background. MSc Medical Engineering & eHealth, Vienna.">
+<meta name="theme-color" content="#0d0d0c">
+<meta property="og:title" content="Sofiia Tretiak — Python & AI for health">
+<meta property="og:description" content="Python & AI developer with a medical engineering background. Based in Vienna.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400;500&family=Bricolage+Grotesque:opsz,wght@12..96,500..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a href="#top" class="mark" aria-label="Back to top">ST<span>.</span></a>
+  <nav aria-label="Sections">
+    <a href="#work">Work</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <p class="kicker mono"><span class="dot"></span> Vienna, Austria</p>
+    <canvas class="hero-spec" aria-hidden="true"></canvas>
+    <h1 class="hero-name">Sofiia<br><em>Tretiak</em></h1>
+    <div class="hero-bottom">
+      <p class="hero-tag">Python &amp; AI developer with a medical engineering background. I build AI and data products end to end, where <em>health data</em> meets <em>machine learning</em>: from EEG research and computer vision to a RAG system over national drug registers.</p>
+      <div class="hero-cta">
+        <a class="btn-primary" href="/cv.pdf" download>Download CV <span aria-hidden="true">↓</span></a>
+        <a class="link-arrow" href="#work">See the work <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORK ============ -->
+<section class="section work-head" id="work">
+  <div class="wrap">
+    <h2 class="section-title">Projects I like <em>the most.</em></h2>
+  </div>
+</section>
+
+<!-- Project 1: EEG research — preprint / figure -->
+<article class="proj proj-research" aria-labelledby="p-rs">
+  <div class="wrap">
+    <div class="rs-top">
+      <p class="mono rs-venue">Jun–Aug 2026 · Research Trainee, Neuroengineering Dept. · METAM · Karadeniz Technical University · Trabzon, Türkiye · Erasmus exchange</p>
+    </div>
+    <h3 id="p-rs" class="rs-title">Hidden confounds in EEG emotion recognition</h3>
+    <p class="rs-sub">A controlled evaluation on the FACED dataset</p>
+
+    <figure class="rs-eeg">
+      <svg id="eeg" viewBox="0 0 600 200" preserveAspectRatio="none" role="img" aria-label="Animated multichannel EEG traces"></svg>
+    </figure>
+
+    <div class="rs-grid">
+      <div class="rs-text">
+        <h4>The question</h4>
+        <p>FACED is one of the largest public EEG emotion datasets: 123 people, 32 channels, 28 video clips and 9 emotions. The published benchmark for the hardest setting (9 classes, tested on people the model has never seen) was about 42%. My goal was to beat it.</p>
+        <h4>What I built</h4>
+        <p>Differential-entropy features in five frequency bands plus functional connectivity between channels, over sliding windows. On top of that: a bidirectional GRU with attention, a Transformer encoder and an order-invariant MLP, combined in a soft-voting ensemble across architectures and seeds, trained with class-weighted loss and subject-grouped cross-validation. I also ran ablations on data volume, channels and signal duration. The ensemble reached <strong>~53%</strong>.</p>
+        <h4>The turning point</h4>
+        <p>A reviewer report made me ask why the number was so high. Instead of defending it, I designed control experiments and found two hidden confounds:</p>
+        <ol class="rs-list">
+          <li><b>Target-subject normalization.</b> Scaling features with the test person's own recordings added about 17 points. The "subject-independent" result quietly needed the new person's full recording.</li>
+          <li><b>Stimulus identity.</b> Everyone watches the same 28 clips, and standard splits put the same clips in training and test. The EEG carries a signature of each clip, so the model recognised clips, not emotions.</li>
+        </ol>
+        <h4>Honest result</h4>
+        <p>Under the strictest clean protocol (new people, new clips, train-only normalization), 9-class balanced accuracy is <strong>~14.5%</strong>, only weakly above the 11.1% chance level (permutation p = 0.032). The remaining signal sits in a few physiologically distinct emotions, such as disgust and amusement. A manuscript is prepared.</p>
+      </div>
+
+      <figure class="rs-chart" aria-labelledby="rs-cap">
+        <p class="mono rs-chart-k">9-class accuracy by evaluation protocol</p>
+        <ol class="rs-bars" role="list">
+          <li style="--v:53"><span class="rs-l">My ensemble, standard split</span><span class="rs-b"></span><span class="rs-n">53%</span></li>
+          <li style="--v:47"><span class="rs-l">New people · same videos</span><span class="rs-b"></span><span class="rs-n">47%</span></li>
+          <li class="rs-ref" style="--v:42"><span class="rs-l">Published benchmark</span><span class="rs-b"></span><span class="rs-n">42%</span></li>
+          <li style="--v:16"><span class="rs-l">Same people · new videos</span><span class="rs-b"></span><span class="rs-n">16%</span></li>
+          <li style="--v:15"><span class="rs-l">New people · new videos</span><span class="rs-b"></span><span class="rs-n">15%</span></li>
+          <li class="rs-hi" style="--v:14.5"><span class="rs-l">Strict: + train-only normalization</span><span class="rs-b"></span><span class="rs-n">14.5%</span></li>
+          <li style="--v:11"><span class="rs-l">Clip held out entirely</span><span class="rs-b"></span><span class="rs-n">~11%</span></li>
+        </ol>
+        <div class="rs-chance" aria-hidden="true"><span class="mono">chance 11.1%</span></div>
+        <figcaption id="rs-cap" class="mono">Accuracy follows video overlap, not emotion generalisation. The strict row is balanced accuracy.</figcaption>
+      </figure>
+    </div>
+
+    <ul class="rs-tags mono" aria-label="Methods and tools">
+      <li>Python</li><li>PyTorch</li><li>BiGRU + attention</li><li>Transformer</li><li>Ensembles</li><li>Gradient reversal</li><li>Differential entropy</li><li>Functional connectivity</li><li>Bootstrap CIs</li><li>Permutation tests</li><li>Google Colab</li>
+    </ul>
+  </div>
+</article>
+
+<!-- Project 2: PharmaRAG — drug leaflet -->
+<article class="proj proj-pharma" aria-labelledby="p-ph">
+  <div class="wrap ph-grid">
+    <header class="ph-head">
+      <h3 id="p-ph" class="ph-title">PharmaRAG</h3>
+      <p class="ph-sub">Medicine questions answered <em>only</em> from official leaflets, with a source for every sentence.</p>
+    </header>
+
+    <div class="ph-col">
+      <h4><span>1.</span> What it is</h4>
+      <p>You ask about a specific medicine in one of six languages and pick a country. PharmaRAG answers using only that country's official patient leaflet, and every sentence links to the exact passage it came from. If the leaflet doesn't cover the question, the app says so instead of making up an answer. Medical content goes through safety tiers.</p>
+      <h4><span>2.</span> How it works</h4>
+      <p>Drug registers from six countries are grouped by active substance and form, leaflets are split by their real sections, embedded and stored in Qdrant (~400k chunks). When you ask a question, product-name detection and hybrid re-ranking find the passages, and an LLM (Groq, with Gemini as fallback) writes an answer with numbered citations. Answers come back in 2–4 seconds.</p>
+      <h4><span>3.</span> Composition</h4>
+      <ul class="ph-tags"><li>Python</li><li>FastAPI</li><li>Qdrant</li><li>Embeddings</li><li>Groq / Gemini</li><li>React</li><li>pytest (36 tests)</li><li>Render · Vercel</li></ul>
+      <div class="ph-links">
+        <a href="https://pharma-rag-nine.vercel.app" target="_blank" rel="noopener">Live demo ↗</a>
+        <a href="https://github.com/TSofi/pharma-rag" target="_blank" rel="noopener">Source ↗</a>
+      </div>
+      <p class="ph-warn">Solo project, live and open source. Educational, not medical advice.</p>
+    </div>
+
+    <div class="ph-col ph-demo">
+      <div class="ph-q"><span class="ph-flag">EN</span> <span>Can I take ibuprofen together with aspirin?</span></div>
+      <div class="ph-a">
+        <p>Taking ibuprofen together with low-dose aspirin may reduce aspirin's protective effect on the heart<sup>[1]</sup>. The leaflet advises telling your doctor or pharmacist if you take other NSAIDs<sup>[2]</sup>.</p>
+      </div>
+      <div class="ph-sources mono">
+        <p><b>[1]</b> Ibuprofen 200 mg · §2 “Other medicines and…”</p>
+        <p><b>[2]</b> Ibuprofen 200 mg · §2 “Warnings and precautions”</p>
+      </div>
+      <p class="ph-note mono">illustrative example of the answer format</p>
+      <table class="ph-table">
+        <caption class="mono">Coverage · official open data</caption>
+        <thead><tr><th>Country</th><th>Leaflets</th><th>Chunks</th></tr></thead>
+        <tbody>
+          <tr><td>Ukraine</td><td>2,998</td><td>93,470</td></tr>
+          <tr><td>Spain</td><td>2,903</td><td>81,452</td></tr>
+          <tr><td>France</td><td>2,362</td><td>65,576</td></tr>
+          <tr><td>Poland</td><td>2,426</td><td>64,742</td></tr>
+          <tr><td>United States</td><td>3,277</td><td>57,440</td></tr>
+          <tr><td>Czechia</td><td>1,508</td><td>37,179</td></tr>
+        </tbody>
+        <tfoot><tr><td>~100k products</td><td>~15,500</td><td>~400,000</td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+</article>
+
+<!-- Project 3: Buckwheat Sort — playful -->
+<article class="proj proj-buckwheat" aria-labelledby="p-bw">
+  <canvas class="bw-field" aria-hidden="true"></canvas>
+  <div class="wrap bw-grid">
+    <div class="bw-text">
+      <h3 id="p-bw" class="bw-title">Catch it.<br>Sort the <span>buckwheat.</span></h3>
+      <p class="bw-desc">A calm, satisfying mobile game based on a very Ukrainian chore. You drag each grain with your finger: good ones into the bowl, everything else into the bin. That means dark, shrivelled, spotted, deformed or moldy grains, and also pebbles, oat flakes, petals and specks. A right move gives +10, a mistake −5. Every level adds more grains and trickier types, and an optional timer gives a bonus for speed.</p>
+      <p class="bw-desc">The whole game is one <code>index.html</code> with zero dependencies. Everything on screen is drawn with the Canvas API, and the sounds are made in code with the Web Audio API. It works with both touch and mouse, and a service worker lets it run offline and install on a phone like a native app.</p>
+      <ul class="bw-tags" aria-label="Technologies">
+        <li>Vanilla JS</li><li>Canvas API</li><li>Web Audio API</li><li>Touch &amp; mouse events</li><li>PWA · Service Worker</li><li>Vercel</li>
+      </ul>
+      <div class="bw-links">
+        <a class="bw-btn" href="https://buckwheat-sort.vercel.app/" target="_blank" rel="noopener">Play full screen ↗</a>
+      </div>
+    </div>
+    <div class="bw-device">
+      <div class="bw-screen" id="bw-screen">
+        <button class="bw-play" id="bw-play" type="button">
+          <span class="bw-play-big">▶ Play here</span>
+          <span class="bw-play-small">loads the live game</span>
+        </button>
+      </div>
+      <p class="bw-caption">try it, it's harder than it looks</p>
+    </div>
+  </div>
+</article>
+
+<!-- Project 4: Career Shark — hackathon dashboard -->
+<article class="proj proj-hack" aria-labelledby="p-hack">
+  <div class="wrap">
+    <div class="hk-bar mono">
+      <span>~/hackathons/best-2024/career-shark</span>
+      <span class="hk-live"><i></i> 24h build</span>
+    </div>
+    <div class="hk-grid">
+      <div class="hk-main">
+        <h3 id="p-hack" class="hk-title">Career Shark</h3>
+        <p class="hk-desc">People who are new to IT often don't know which direction to choose. We built Career Shark in 24 hours at the <strong>BEST Hackathon</strong>. It's a game-like learning app inspired by Duolingo: you follow paths from frontend to backend, finish short courses and earn points on the way.</p>
+        <p class="hk-desc"><span class="hk-role mono">my part →</span> I led the team and worked across the stack: some of the FastAPI backend, some of the React frontend, and the game logic (points, progression and path structure).</p>
+        <ul class="hk-tags mono" aria-label="Technologies">
+          <li>React</li><li>TypeScript</li><li>Python</li><li>FastAPI</li><li>MongoDB</li><li>Groq LLM</li>
+        </ul>
+        <div class="hk-links mono">
+          <a href="https://github.com/TSofi/career_shark_frontend" target="_blank" rel="noopener">frontend repo ↗</a>
+          <a href="https://github.com/dominikcedro/career_shark_backend" target="_blank" rel="noopener">backend repo ↗</a>
+        </div>
+      </div>
+      <div class="hk-panel" aria-label="Hackathon stats">
+        <div class="hk-stat hk-rank">
+          <span class="mono hk-k">final rank</span>
+          <span class="hk-v">#7</span>
+          <span class="mono hk-sub">of ~50 teams · top 10</span>
+          <div class="hk-rankbar" aria-hidden="true"><span></span></div>
+          <span class="mono hk-beat">ahead of ~43 teams</span>
+        </div>
+        <div class="hk-stat">
+          <span class="mono hk-k">clock</span>
+          <span class="hk-v hk-clock" id="hk-clock">24:00:00</span>
+          <span class="mono hk-sub">12 → 13 Oct 2024</span>
+        </div>
+        <div class="hk-stat">
+          <span class="mono hk-k">team</span>
+          <span class="hk-v">4</span>
+          <span class="mono hk-sub">devs · I was lead</span>
+        </div>
+        <div class="hk-log mono" aria-hidden="true">
+          <p><b>idea</b> career paths for IT beginners</p>
+          <p><b>api</b> FastAPI + MongoDB</p>
+          <p><b>ui</b> React + TypeScript path map</p>
+          <p><b>game</b> points &amp; progression logic</p>
+          <p><b>llm</b> Groq integration</p>
+          <p class="hk-cursor"><b>result</b> 7th place, top 10 ▌</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- Project 5: EyeSpy — lab notebook figure -->
+<article class="proj proj-lab" aria-labelledby="p-lab">
+  <div class="wrap">
+    <header class="lab-head">
+      <h3 id="p-lab" class="lab-title">EyeSpy</h3>
+      <p class="lab-intro">Real-time emotion <em>&amp;</em> fatigue detection from a webcam.</p>
+      <p class="mono lab-ctx">Solvro Summer Challenge · Wrocław University of Science and Technology · Sep 2025</p>
+    </header>
+
+    <div class="lab-fig">
+      <figure class="lab-plot">
+        <svg viewBox="0 0 600 260" role="img" aria-label="Pipeline: webcam frame to ResNet18 emotion classifier and Mediapipe fatigue metrics">
+          <g class="nn" id="nn"></g>
+        </svg>
+        <figcaption class="mono"><b>Fig. 1</b> Two branches: ResNet18 classifies 7 emotions; 468 MediaPipe landmarks give EAR/MAR fatigue cues.</figcaption>
+      </figure>
+      <div class="lab-text">
+        <p>I trained the emotion model: ResNet18 fine-tuned on FER-2013 for 20 epochs, which reached <strong>~65% test accuracy</strong> on 7 classes. I also analysed failures per class (for example, "disgust" suffers from too few examples). The model runs inside a live video pipeline next to MediaPipe landmark tracking, which measures blinks (EAR) and yawns (MAR).</p>
+        <ul class="lab-tags mono"><li>PyTorch</li><li>ResNet18</li><li>OpenCV</li><li>MediaPipe</li></ul>
+        <p class="lab-links mono"><a href="https://github.com/TSofi/Emotions-and-stress-detector" target="_blank" rel="noopener">repo ↗</a></p>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- Project 6: Travel Planner API — museum wall label -->
+<article class="proj proj-museum" aria-labelledby="p-tp">
+  <div class="wrap mu-grid">
+    <div class="mu-wall">
+      <div class="mu-frame" aria-hidden="true">
+        <pre class="mono"><span class="m">POST</span>   /projects
+<span class="m">GET</span>    /projects/{id}
+<span class="m">PATCH</span>  /projects/{id}/places
+<span class="m x">DELETE</span> /projects/{id}  <i>→ 409</i>
+<span class="m">GET</span>    /docs</pre>
+      </div>
+    </div>
+    <div class="mu-label">
+      <h3 id="p-tp" class="mu-title">Travel Planner API</h3>
+      <p class="mu-meta">2025 · Python, FastAPI, SQLAlchemy, Pydantic, SQLite, Docker</p>
+      <p class="mu-desc">A REST API for planning art-focused trips, built as a technical assignment for a Python engineering role. Every artwork is checked against the <em>Art Institute of Chicago</em> API before it's saved. A trip is marked complete once every place has been visited, and deletions that would lose data are blocked.</p>
+      <p class="mu-links"><a href="https://github.com/TSofi/travel-planner-api" target="_blank" rel="noopener">View the repository ↗</a></p>
+    </div>
+  </div>
+</article>
+
+<!-- Project 7: current MSc work — in progress -->
+<article class="proj proj-wip" aria-labelledby="p-wip">
+  <div class="wrap">
+    <div class="wip-tape mono" aria-hidden="true"><span>in development · in development · in development · in development · in development · in development · in development · in development ·</span></div>
+    <div class="wip-intro">
+      <h3 id="p-wip" class="wip-head">Now, in my MSc at FH Technikum Wien</h3>
+    </div>
+
+    <div class="wip-grid">
+      <div>
+        <h4 class="wip-title">GEN-DOCK: molecular docking → clinical data</h4>
+        <p class="wip-desc">A containerised docking pipeline. It prepares the receptor and ligand, runs AutoDock Vina, parses the binding affinities into structured data with scripts, and maps the results to <strong>HL7 FHIR</strong> resources for a clinical decision support view.</p>
+        <ul class="wip-tags mono"><li>Python</li><li>AutoDock Vina</li><li>RCSB PDB</li><li>PubChem</li><li>PyMOL</li><li>Docker</li><li>HL7 FHIR R4</li></ul>
+      </div>
+      <ol class="wip-flow wip-plain mono" aria-label="GEN-DOCK pipeline stages">
+        <li><span>in</span> RCSB PDB receptor · PubChem ligand</li>
+        <li><span>01</span> prepare receptor &amp; ligand</li>
+        <li><span>02</span> AutoDock Vina runs <em>in Docker</em></li>
+        <li><span>03</span> parse binding affinities <em>kcal/mol → JSON</em></li>
+        <li><span>04</span> map to HL7 FHIR R4</li>
+        <li><span>out</span> clinical decision support view</li>
+      </ol>
+    </div>
+
+    <div class="wip-grid">
+      <div>
+        <h4 class="wip-title">Public health data pipeline: DHIS2 → OMOP</h4>
+        <p class="wip-desc">A team project. We set up a DHIS2 tracker program for immunization, fill it with patient-level data, transform it into the <strong>OMOP Common Data Model</strong> with an ETL pipeline, and run standard cohort analytics on the result. I'm responsible for the database and SQL, the tracker program configuration, and the documentation.</p>
+        <ul class="wip-tags mono"><li>DHIS2</li><li>OMOP CDM</li><li>PostgreSQL</li><li>SQL</li><li>Python ETL</li></ul>
+        <p class="mono wip-links"><a href="https://github.com/TSofi/apme-dhis2-omop" target="_blank" rel="noopener">follow the repo ↗</a></p>
+      </div>
+      <ol class="wip-flow mono" aria-label="Pipeline stages">
+        <li class="done"><span>01</span> DHIS2 tracker program <em>configured</em></li>
+        <li class="now"><span>02</span> Extraction via Web API <em>in progress</em></li>
+        <li><span>03</span> Source → OMOP mapping <em>queued</em></li>
+        <li><span>04</span> OMOP CDM on PostgreSQL <em>queued</em></li>
+        <li><span>05</span> Cohort queries &amp; analytics <em>queued</em></li>
+      </ol>
+    </div>
+  </div>
+</article>
+
+<!-- ============ EXPERIENCE ============ -->
+<section class="section" id="experience">
+  <div class="wrap grid-12">
+    <div class="xp">
+      <ol class="xp-list">
+        <li>
+          <span class="mono xp-when">Jun – Aug 2026</span>
+          <div><h4>Research Trainee, Neuroengineering</h4><p class="xp-org">METAM, Karadeniz Technical University · Trabzon, Türkiye · Erasmus</p><p>EEG emotion recognition research, <a href="#p-rs">described in full above ↑</a></p></div>
+        </li>
+        <li>
+          <span class="mono xp-when">Mar 2026 – now</span>
+          <div><h4>AI Output Reviewer &amp; Data Annotator</h4><p class="xp-org">Outlier · Alignerr · remote</p><p>I evaluate LLM outputs across text, code and structured data against detailed rubrics, looking for hallucinations, edge cases and systematic failure modes.</p></div>
+        </li>
+        <li>
+          <span class="mono xp-when">May 2025 – May 2026</span>
+          <div><h4>Software Engineer Intern, Digital Product Team</h4><p class="xp-org">Volvo · Wrocław, Poland</p><p>I turned what users needed into clear engineering tickets and handled 5–15 requests a day in ServiceNow and Azure DevOps. I ran SQL against production data to confirm root causes, tested REST API integrations, and documented a company-wide migration of user and access management across several countries.</p></div>
+        </li>
+        <li>
+          <span class="mono xp-when">2026 – 2028</span>
+          <div><h4>MSc Medical Engineering &amp; eHealth</h4><p class="xp-org">UAS Technikum Wien · Vienna</p></div>
+        </li>
+        <li>
+          <span class="mono xp-when">2022 – 2026</span>
+          <div><h4>BEng Medical Informatics &amp; Bioengineering</h4><p class="xp-org">Wrocław University of Science and Technology</p></div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section class="section" id="skills">
+  <div class="wrap grid-12">
+    <div class="skills">
+      <p class="skills-legend mono"><span class="t1">daily</span> <span class="t2">comfortable</span> <span class="t3">familiar</span></p>
+
+      <div class="sk-row">
+        <h3 class="sk-cat"><span class="mono">a.</span> Engineering</h3>
+        <p class="sk-items">
+          <span class="t1">Python</span> <span class="t1">FastAPI</span> <span class="t1">SQL</span> <span class="t1">TypeScript</span> <span class="t1">Git</span>
+          <span class="t2">REST APIs</span> <span class="t2">JSON</span> <span class="t2">Pydantic</span> <span class="t2">SQLAlchemy</span> <span class="t2">PostgreSQL</span> <span class="t2">Docker</span> <span class="t2">pytest</span> <span class="t2">React</span> <span class="t2">JavaScript</span> <span class="t2">Render · Vercel</span> <span class="t2">Jira</span>
+          <span class="t3">MongoDB</span> <span class="t3">Azure DevOps</span> <span class="t3">Java · Spring</span>
+        </p>
+      </div>
+      <div class="sk-row">
+        <h3 class="sk-cat"><span class="mono">b.</span> AI &amp; LLM</h3>
+        <p class="sk-items">
+          <span class="t1">LLM output evaluation</span> <span class="t1">RAG</span> <span class="t1">Prompt design</span>
+          <span class="t2">Retrieval evaluation</span> <span class="t2">Embeddings</span> <span class="t2">Qdrant</span> <span class="t2">Groq · Gemini · Claude APIs</span> <span class="t2">AI-assisted development</span>
+        </p>
+      </div>
+      <div class="sk-row">
+        <h3 class="sk-cat"><span class="mono">c.</span> Machine learning</h3>
+        <p class="sk-items">
+          <span class="t1">PyTorch</span> <span class="t1">NumPy</span> <span class="t1">pandas</span>
+          <span class="t2">GRU &amp; Transformers</span> <span class="t2">CNNs · ResNet</span> <span class="t2">Feature engineering</span> <span class="t2">Ablations &amp; evaluation protocols</span> <span class="t2">Bootstrap · permutation tests</span> <span class="t2">scikit-learn</span> <span class="t2">Google Colab</span>
+          <span class="t3">OpenCV</span> <span class="t3">MediaPipe</span>
+        </p>
+      </div>
+      <div class="sk-row">
+        <h3 class="sk-cat"><span class="mono">d.</span> Health domain</h3>
+        <p class="sk-items">
+          <span class="t1">Medical informatics</span>
+          <span class="t2">Biomedical signal processing</span> <span class="t2">HL7 FHIR</span> <span class="t2">Clinical &amp; regulatory data</span>
+          <span class="t2">OMOP CDM</span> <span class="t2">DHIS2</span>
+          <span class="t3">Molecular docking · AutoDock Vina · PyMOL</span>
+        </p>
+      </div>
+      <div class="sk-row">
+        <h3 class="sk-cat"><span class="mono">e.</span> Delivery</h3>
+        <p class="sk-items">
+          <span class="t1">Requirements with non-technical people</span> <span class="t1">Bridging business &amp; engineering</span> <span class="t1">Documentation</span>
+          <span class="t2">Data validation &amp; reporting</span> <span class="t2">Test cases</span> <span class="t2">ServiceNow</span>
+          <span class="t3">Oracle DB 19c (certification in progress)</span>
+        </p>
+      </div>
+      <div class="sk-row">
+        <h3 class="sk-cat"><span class="mono">f.</span> Languages</h3>
+        <p class="sk-items">
+          <span class="t1">Ukrainian (native)</span> <span class="t1">English C1</span> <span class="t1">Polish C1</span>
+          <span class="t3">German A2, learning</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section contact" id="contact">
+  <div class="wrap">
+    <h2 class="contact-title">Let's build something<br><em>that matters for health.</em></h2>
+    <button class="contact-mail" type="button" data-email="tretiak.sofiia03@gmail.com">
+      <span class="cm-text">tretiak.sofiia03@gmail.com</span>
+      <span class="cm-hint mono">click to copy</span>
+    </button>
+    <ul class="contact-links mono">
+      <li><a href="mailto:tretiak.sofiia03@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3z M3 5l9 8 9-8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Email</a></li>
+      <li><a href="https://www.linkedin.com/in/sofia-tretiak/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 3h4v4H4zM4 9h4v12H4zM10 9h3.8v1.7c.6-1 1.9-2 3.9-2 3.4 0 4.3 2.2 4.3 5.3V21h-4v-6c0-1.5-.3-2.8-1.9-2.8-1.7 0-2.1 1.2-2.1 2.8v6h-4z"/></svg>LinkedIn</a></li>
+      <li><a href="https://github.com/TSofi" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7c-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7a3.9 3.9 0 0 1 1 2.7c0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>GitHub</a></li>
+      <li><a href="/cv.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 20h16" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>CV (PDF)</a></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot wrap mono">
+  <span>© <span id="year">2026</span> Sofiia Tretiak</span>
+  <span>Hand-built: HTML, CSS, a little JS</span>
+  <a href="#top">Back to top ↑</a>
+</footer>
+
+<script src="main.js" defer></script>
+</body>
+</html>
