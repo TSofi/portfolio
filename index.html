@@ -43,7 +43,7 @@
     <div class="hero-bottom">
       <p class="hero-tag">Python &amp; AI developer with a medical engineering background. I build AI and data products end to end, where <em>health data</em> meets <em>machine learning</em>: from EEG research and computer vision to a RAG system over national drug registers.</p>
       <div class="hero-cta">
-        <a class="btn-primary" href="/cv.pdf" download>Download CV <span aria-hidden="true">↓</span></a>
+        <a class="btn-primary" href="/Sofiia_Tretiak_CV.pdf" download="Sofiia_Tretiak_CV.pdf">Download CV <span aria-hidden="true">↓</span></a>
         <a class="link-arrow" href="#work">See the work <span aria-hidden="true">→</span></a>
       </div>
     </div>
@@ -82,23 +82,21 @@
           <li><b>Target-subject normalization.</b> Scaling features with the test person's own recordings added about 17 points. The "subject-independent" result quietly needed the new person's full recording.</li>
           <li><b>Stimulus identity.</b> Everyone watches the same 28 clips, and standard splits put the same clips in training and test. The EEG carries a signature of each clip, so the model recognised clips, not emotions.</li>
         </ol>
-        <h4>Honest result</h4>
+        <h4>Result</h4>
         <p>Under the strictest clean protocol (new people, new clips, train-only normalization), 9-class balanced accuracy is <strong>~14.5%</strong>, only weakly above the 11.1% chance level (permutation p = 0.032). The remaining signal sits in a few physiologically distinct emotions, such as disgust and amusement. A manuscript is prepared.</p>
       </div>
 
       <figure class="rs-chart" aria-labelledby="rs-cap">
-        <p class="mono rs-chart-k">9-class accuracy by evaluation protocol</p>
+        <p class="rs-chart-q">How often does the model guess the right emotion?</p>
+        <p class="rs-chart-why">Everyone in the dataset watches the same 28 videos. The question is whether the test uses videos the model already saw in training.</p>
         <ol class="rs-bars" role="list">
-          <li style="--v:53"><span class="rs-l">My ensemble, standard split</span><span class="rs-b"></span><span class="rs-n">53%</span></li>
-          <li style="--v:47"><span class="rs-l">New people · same videos</span><span class="rs-b"></span><span class="rs-n">47%</span></li>
-          <li class="rs-ref" style="--v:42"><span class="rs-l">Published benchmark</span><span class="rs-b"></span><span class="rs-n">42%</span></li>
-          <li style="--v:16"><span class="rs-l">Same people · new videos</span><span class="rs-b"></span><span class="rs-n">16%</span></li>
-          <li style="--v:15"><span class="rs-l">New people · new videos</span><span class="rs-b"></span><span class="rs-n">15%</span></li>
-          <li class="rs-hi" style="--v:14.5"><span class="rs-l">Strict: + train-only normalization</span><span class="rs-b"></span><span class="rs-n">14.5%</span></li>
-          <li style="--v:11"><span class="rs-l">Clip held out entirely</span><span class="rs-b"></span><span class="rs-n">~11%</span></li>
+          <li style="--v:53"><span class="rs-l">Usual test: new people, <b>videos seen in training</b></span><span class="rs-b"></span><span class="rs-n">53%</span></li>
+          <li class="rs-ref" style="--v:42"><span class="rs-l">Published benchmark, same kind of test</span><span class="rs-b"></span><span class="rs-n">42%</span></li>
+          <li style="--v:15"><span class="rs-l">New people <b>and videos never seen</b></span><span class="rs-b"></span><span class="rs-n">15%</span></li>
+          <li class="rs-hi" style="--v:14.5"><span class="rs-l">Fully clean: also no data from the test person used for scaling</span><span class="rs-b"></span><span class="rs-n">14.5%</span></li>
         </ol>
-        <div class="rs-chance" aria-hidden="true"><span class="mono">chance 11.1%</span></div>
-        <figcaption id="rs-cap" class="mono">Accuracy follows video overlap, not emotion generalisation. The strict row is balanced accuracy.</figcaption>
+        <div class="rs-chance" aria-hidden="true"><span class="mono">random guess · 11%</span></div>
+        <figcaption id="rs-cap">Once the videos are new, accuracy drops almost to random guessing (dashed line, 1 in 9 emotions). The model had mostly learned to recognise <em>which video</em> was playing, not the emotion.</figcaption>
       </figure>
     </div>
 
@@ -422,7 +420,7 @@
       <li><a href="mailto:tretiak.sofiia03@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3z M3 5l9 8 9-8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Email</a></li>
       <li><a href="https://www.linkedin.com/in/sofia-tretiak/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 3h4v4H4zM4 9h4v12H4zM10 9h3.8v1.7c.6-1 1.9-2 3.9-2 3.4 0 4.3 2.2 4.3 5.3V21h-4v-6c0-1.5-.3-2.8-1.9-2.8-1.7 0-2.1 1.2-2.1 2.8v6h-4z"/></svg>LinkedIn</a></li>
       <li><a href="https://github.com/TSofi" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7c-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7a3.9 3.9 0 0 1 1 2.7c0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>GitHub</a></li>
-      <li><a href="/cv.pdf" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 20h16" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>CV (PDF)</a></li>
+      <li><a href="/Sofiia_Tretiak_CV.pdf" download="Sofiia_Tretiak_CV.pdf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 20h16" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>CV (PDF)</a></li>
     </ul>
   </div>
 </section>

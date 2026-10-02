@@ -166,9 +166,11 @@ em { font-style: italic; }
 
 /* bar chart: bars scale to 60% = full width; the dashed line marks chance (11.1%) */
 .rs-chart { position: sticky; top: 80px; border-top: 2px solid var(--rs-ink); padding-top: 14px; --scale: 60; }
-.rs-chart-k { color: var(--rs-dim); text-transform: uppercase; letter-spacing: .1em; font-size: 11px; margin-bottom: 18px; }
+.rs-chart-q { font-family: var(--serif); font-size: clamp(22px, 2vw, 28px); line-height: 1.2; margin-bottom: 10px; }
+.rs-chart-why { color: var(--rs-dim); font-size: 14.5px; line-height: 1.55; margin-bottom: 22px; }
+.rs-l b { color: var(--rs-ink); font-weight: 600; }
 .rs-bars { position: relative; }
-.rs-bars::before { content: ""; position: absolute; top: 18px; bottom: 0; left: calc((100% - 66px) * 11.1 / 60); border-left: 1px dashed var(--accent); opacity: .8; pointer-events: none; z-index: 1; }
+.rs-bars::before { content: ""; position: absolute; top: 0; bottom: 0; left: calc((100% - 66px) * 11.1 / 60); border-left: 1px dashed var(--accent); opacity: .8; pointer-events: none; z-index: 1; }
 .rs-bars li { display: grid; grid-template-columns: minmax(0, 1fr) 54px; grid-template-rows: auto 14px; column-gap: 12px; margin-bottom: 14px; }
 .rs-l { grid-column: 1 / -1; font-size: 14px; color: var(--rs-text); margin-bottom: 4px; }
 .rs-b { position: relative; }
@@ -187,7 +189,8 @@ em { font-style: italic; }
 .rs-n { font-family: var(--mono); font-size: 13px; color: var(--rs-ink); align-self: center; font-variant-numeric: tabular-nums; }
 .rs-chance { position: relative; height: 14px; }
 .rs-chance span { position: absolute; left: calc((100% - 66px) * 11.1 / 60 + 6px); top: 0; color: var(--accent); font-size: 10.5px; white-space: nowrap; }
-.rs-chart figcaption { color: var(--rs-dim); margin-top: 18px; line-height: 1.5; }
+.rs-chart figcaption { color: var(--rs-text); margin-top: 18px; font-size: 15px; line-height: 1.55; border-left: 2px solid var(--accent); padding-left: 12px; }
+.rs-chart figcaption em { color: var(--rs-ink); }
 .rs-tags { display: flex; flex-wrap: wrap; margin-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--rs-rule); }
 .rs-tags li { padding: 12px 8px 0 0; color: var(--rs-dim); }
 .rs-tags li::after { content: " /"; color: var(--rs-sep); }
