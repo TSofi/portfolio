@@ -22,8 +22,14 @@
   /* ---------- hero: live spectrogram strip (five EEG bands, sharp cells) ---------- */
   (function spectrogram() {
     const c = $('.hero-spec'); if (!c) return;
-    const color = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#e8006f';
-    const [r, g, b] = color.match(/\w\w/g).map(h => parseInt(h, 16));
+    // colours come from the theme and are re-read when it changes
+    let r, g, b, labelColor;
+    const readColors = () => {
+      const st = getComputedStyle(document.documentElement);
+      [r, g, b] = (st.getPropertyValue('--accent').trim() || '#e8006f').match(/\w\w/g).map(h => parseInt(h, 16));
+      labelColor = st.getPropertyValue('--ink-3').trim() || '#64625d';
+    };
+    readColors();
     const BANDS = ['γ', 'β', 'α', 'θ', 'δ'], SUB = 2, ROWS = BANDS.length * SUB;
     let s, cell, cols, grid = [], raf, last = 0, t = 0;
     // each band has its own slow rhythm; alpha gets occasional bursts
@@ -47,7 +53,7 @@
       ctx.clearRect(0, 0, w, h);
       const top = (h - ROWS * cell) / 2;
       ctx.font = '500 11px "JetBrains Mono", monospace';
-      ctx.fillStyle = 'rgba(236,235,230,.4)';
+      ctx.fillStyle = labelColor;
       BANDS.forEach((n, i) => ctx.fillText(n, 4, top + (i * SUB + SUB / 2) * cell + 4));
       for (let x = 0; x < cols; x++) {
         const fade = Math.min(1, x / 12); // fade in from the left edge
@@ -69,6 +75,7 @@
     }
     layout(); paint();
     addEventListener('resize', () => { layout(); paint(); });
+    addEventListener('themechange', () => { readColors(); paint(); });
     whileVisible(c, () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(frame); }, () => cancelAnimationFrame(raf));
   })();
 
@@ -238,6 +245,26 @@
     };
     pulse();
     whileVisible(g.ownerSVGElement, () => { if (!reduce) id = setInterval(pulse, 1100); }, () => clearInterval(id));
+  })();
+
+  /* ---------- theme toggle (dark default, choice remembered) ---------- */
+  (function theme() {
+    const btn = $('.theme-toggle'); if (!btn) return;
+    const meta = $('meta[name="theme-color"]');
+    const sync = () => {
+      const light = document.documentElement.dataset.theme === 'light';
+      $('.tt-text', btn).textContent = light ? 'dark' : 'light';
+      btn.setAttribute('aria-label', light ? 'Switch to dark theme' : 'Switch to light theme');
+      if (meta) meta.content = light ? '#f3f1ec' : '#0d0d0c';
+    };
+    btn.addEventListener('click', () => {
+      const light = document.documentElement.dataset.theme !== 'light';
+      if (light) document.documentElement.dataset.theme = 'light'; else delete document.documentElement.dataset.theme;
+      try { localStorage.setItem('theme', light ? 'light' : 'dark'); } catch (e) {}
+      sync();
+      dispatchEvent(new Event('themechange'));
+    });
+    sync();
   })();
 
   /* ---------- copy email ---------- */
