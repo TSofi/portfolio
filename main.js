@@ -136,7 +136,7 @@
   $('#bw-play')?.addEventListener('click', () => {
     const screen = $('#bw-screen');
     const f = document.createElement('iframe');
-    f.src = 'https://buckwheat-sort.vercel.app/';
+    f.src = 'https://buckwheat-sort.vercel.app/?lang=en';
     f.title = 'Buckwheat Sort — playable game';
     f.allow = 'autoplay';
     screen.replaceChildren(f);
